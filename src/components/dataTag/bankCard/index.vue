@@ -47,6 +47,7 @@ export default{
   data: function () {
     return {
       findFormat: (content, model, formatList) => {
+        var def = '%%%%%%%%%%%%%%%%%%%'
         try {
           var f = lodash.find(formatList, (val, ind) => {
             return val.model === model
@@ -54,9 +55,9 @@ export default{
           return lodash.find(f.format, (v, i) => {
             v = v.replace(/\s/g, '')
             return v.length === content.length
-          })
+          }) || def
         } catch (e) {
-          return '%%%%%%%%%%%%%%%%%%%'
+          return def
         }
       }
     }
