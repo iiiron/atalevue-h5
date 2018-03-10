@@ -74,4 +74,32 @@ weLodash.dateFormat = function (mdate, fmt) {
   return fmt
 }
 
+/**
+ * 该函数可以理解为，从numberBunch中逐个取出字符，填充到format的'%'，'*'，和'^'位上
+ * % 表示保留原字符
+ * ^ 表示丢弃（使用空字符串替换）原字符
+ * * 表示使用‘*’替换原字符
+ * @param  {[String]} numberBunch [description]
+ * @param  {[String]} format         [description]
+ * @return {[String]}             [description]
+ */
+weLodash.numberBunchFormat = function (numberBunch, format) {
+  console.log(format)
+  var cttAry = numberBunch.split('')
+  var cttInd = -1
+  return format.split('').map((val, ind, ary) => {
+    cttInd++
+    if (val === '%') {
+      return cttAry[cttInd] || ''
+    } else if (val === '^') {
+      return ''
+    } else if (val === '*') {
+      return val
+    } else {
+      cttInd--
+      return val
+    }
+  }).join('')
+}
+
 export default weLodash

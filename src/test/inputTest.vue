@@ -1,6 +1,6 @@
 <template>
   <div>
-    <common-input></common-input>
+    <common-input v-model="bank"></common-input>
     <id-card-input></id-card-input>
     <img-vali-input></img-vali-input>
     <money-input></money-input>
@@ -12,7 +12,7 @@
     <basic-img :img="require('./logo.png')" @error="error"></basic-img>
     <basic-img @error="error"></basic-img>
     <state-button ref="btn" :isActive="isActive" :model="1" :value="'按钮'" @click="onClick" class="test"></state-button>
-    <bank-card :model="3" v-model="bank"></bank-card>
+    <bank-card :model="2" v-model="bank" style="color:red;"></bank-card>
   </div>
 </template>
 
