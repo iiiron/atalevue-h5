@@ -12,7 +12,10 @@
     <basic-img :img="require('./logo.png')" @error="error"></basic-img>
     <basic-img @error="error"></basic-img>
     <state-button ref="btn" :isActive="isActive" :model="1" :value="'按钮'" @click="onClick" class="test"></state-button>
-    <bank-card :model="2" v-model="bank" style="color:red;"></bank-card>
+    <bank-card :model="1" v-model="bank" style="color:red;"></bank-card>
+    <id-card v-model="bank" :model="2"></id-card>
+    <money :value="bank" :isCover="false"></money>
+    <phone-number :value="13390146190" :model="4"></phone-number>
   </div>
 </template>
 
@@ -34,6 +37,9 @@ import basicImg from '@/components/basicImg'
 import stateButton from './stateButton'
 
 import bankCard from '@/components/dataTag/bankCard'
+import idCard from '@/components/dataTag/idCard'
+import money from '@/components/dataTag/money'
+import phoneNumber from '@/components/dataTag/phoneNumber'
 
 export default {
   data () {
@@ -64,7 +70,10 @@ export default {
     userNameInput,
     basicImg,
     stateButton,
-    bankCard
+    bankCard,
+    idCard,
+    money,
+    phoneNumber
   },
   mounted () {
     var im = new InputManager()

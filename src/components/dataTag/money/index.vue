@@ -1,39 +1,36 @@
 <template>
-	  <div>
-      <span v-if="!isCover">{{showMoney}}</span>
-      <span v-if="isCover">{{cov}}</span>
-    </div> 
+  <span v-html="money"></span>
 </template>
 
 <script>
-import accounting from '@/assets/accounting.js'
+import accounting from '@/lib/accounting.js'
 
 export default {
   name: 'Money',
   props: {
-    money:null
+    value: {
+      type: [String, Number],
+      default: 0
+    },
+    isCover: {
+      type: Boolean,
+      default: false
+    }
   },
   data () {
     return {
-      cov:"******",
-      isCover:false
+      cov: '******',
+      cover: false
     }
   },
   computed: {
-    showMoney: function () {
-      return accounting.formatMoney(this.money)
-    }
-  },
-  methods:{
-    cover:function(){
-      this.isCover=true;
-    },
-    uncover:function(){
-      this.isCover=false;
+    money: function () {
+      return this.isCover ? '******' : accounting.formatMoney(this.value)
     }
   }
 }
 </script>
 
-<style>
+<style scode>
+
 </style>

@@ -84,19 +84,28 @@ weLodash.dateFormat = function (mdate, fmt) {
  * @return {[String]}             [description]
  */
 weLodash.numberBunchFormat = function (numberBunch, format) {
-  console.log(format)
-  var cttAry = numberBunch.split('')
+  var cttAry = numberBunch.toString().split('')
   var cttInd = -1
+  var specialLock = false
   return format.split('').map((val, ind, ary) => {
-    cttInd++
+    if (specialLock) {
+      specialLock = false
+      return val
+    }
+
     if (val === '%') {
+      cttInd++
       return cttAry[cttInd] || ''
     } else if (val === '^') {
+      cttInd++
       return ''
     } else if (val === '*') {
+      cttInd++
       return val
+    } else if (val === '\\') {
+      specialLock = true
+      return ''
     } else {
-      cttInd--
       return val
     }
   }).join('')
