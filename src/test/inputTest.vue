@@ -1,21 +1,39 @@
 <template>
   <div>
     <common-input v-model="bank"></common-input>
-    <id-card-input></id-card-input>
+    <br>
+    <id-card-input v-model="id"></id-card-input>
+    <br>
     <img-vali-input></img-vali-input>
-    <money-input></money-input>
+    <br>
+    <money-input v-model="money"></money-input>
+    <br>
     <msg-vali-input></msg-vali-input>
+    <br>
     <pass-word-input></pass-word-input>
-    <phone-num-input></phone-num-input>
+    <br>
+    <phone-num-input v-model="phone"></phone-num-input>
+    <br>
     <pick-input></pick-input>
+    <br>
     <user-name-input ref="name"></user-name-input>
-    <basic-img :img="require('./logo.png')" @error="error"></basic-img>
-    <basic-img @error="error"></basic-img>
+    <br>
+    <!-- <basic-img :img="require('./logo.png')" @error="error"></basic-img> -->
+    <br>
+    <!-- <basic-img @error="error"></basic-img> -->
+    <br>
     <state-button ref="btn" :isActive="isActive" :model="1" :value="'按钮'" @click="onClick" class="test"></state-button>
+    <br>
     <bank-card :model="1" v-model="bank" style="color:red;"></bank-card>
-    <id-card v-model="bank" :model="2"></id-card>
-    <money :value="bank" :isCover="false"></money>
-    <phone-number :value="13390146190" :model="4"></phone-number>
+    <br>
+    <id-card v-model="id" :model="2"></id-card>
+    <br>
+    <money :value="money" :isCover="false"></money>
+    <br>
+    <phone-number :value="phone" :model="4"></phone-number>
+    <br>
+    <number-key-board :value="keyShow" @finished="onInputFinished"></number-key-board>
+    <pop-iframe ref="pop" :url="'https://www.baidu.com'"></pop-iframe>
   </div>
 </template>
 
@@ -36,6 +54,9 @@ import weStorage from '@/utils/weStorage.js'
 import basicImg from '@/components/basicImg'
 import stateButton from './stateButton'
 
+import popIframe from '@/components/popIframe'
+import numberKeyBoard from '@/components/numberKeyBoard'
+
 import bankCard from '@/components/dataTag/bankCard'
 import idCard from '@/components/dataTag/idCard'
 import money from '@/components/dataTag/money'
@@ -46,15 +67,24 @@ export default {
     return {
       isActive: false,
       bank: '6214830174640135',
+      phone: 13390146190,
+      id: '502927199001270077',
+      money: 1000,
+      keyShow: true,
 
       error: () => {
         console.log('img get error')
       },
       onClick: () => {
+        this.$refs.pop.show()
         console.log('click btn')
       },
       moveIn: () => {
         console.log('move in')
+      },
+      onInputFinished: (val) => {
+        this.keyShow = false
+        console.log(val)
       }
     }
   },
@@ -73,7 +103,9 @@ export default {
     bankCard,
     idCard,
     money,
-    phoneNumber
+    phoneNumber,
+    popIframe,
+    numberKeyBoard
   },
   mounted () {
     var im = new InputManager()
@@ -82,11 +114,11 @@ export default {
       // console.log(v, i)
     })
 
-    var cd = new CountDown(3)
+    var cd = new CountDown(4)
     cd.onRunning((m, c) => {
       // console.log(m, c)
       this.isActive = !this.isActive
-      this.$refs.btn.click()
+      // this.$refs.btn.click()
     })
     cd.start()
 

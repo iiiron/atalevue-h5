@@ -58,7 +58,7 @@ export default{
   },
   computed: {
     card: function () {
-      return weLodash.numberBunchFormat(this.value, this.findFormat(this.value, this.model, this.formatList)).replace(/ /g, '&nbsp;')
+      return weLodash.fillIn(this.value, this.findFormat(this.value, this.model, this.formatList)).replace(/ /g, '&nbsp;')
     }
   }
 }

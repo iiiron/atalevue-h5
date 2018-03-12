@@ -75,16 +75,16 @@ weLodash.dateFormat = function (mdate, fmt) {
 }
 
 /**
- * 该函数可以理解为，从numberBunch中逐个取出字符，填充到format的'%'，'*'，和'^'位上
+ * 该函数可以理解为，从content中逐个取出字符，填充到format的'%'，'*'，和'^'位上
  * % 表示保留原字符
  * ^ 表示丢弃（使用空字符串替换）原字符
- * * 表示使用‘*’替换原字符
- * @param  {[String]} numberBunch [description]
+ * * 表示使用‘*’替换原字符，只有存在原字符的情况下才会使用*去替换它
+ * @param  {[String]} content [description]
  * @param  {[String]} format         [description]
  * @return {[String]}             [description]
  */
-weLodash.numberBunchFormat = function (numberBunch, format) {
-  var cttAry = numberBunch.toString().split('')
+weLodash.fillIn = function (content, format) {
+  var cttAry = content.toString().split('')
   var cttInd = -1
   var specialLock = false
   return format.split('').map((val, ind, ary) => {
@@ -94,14 +94,12 @@ weLodash.numberBunchFormat = function (numberBunch, format) {
     }
 
     if (val === '%') {
-      cttInd++
-      return cttAry[cttInd] || ''
+      return cttAry[++cttInd] || ''
     } else if (val === '^') {
       cttInd++
       return ''
     } else if (val === '*') {
-      cttInd++
-      return val
+      return ++cttInd < cttAry.length ? '*' : ''
     } else if (val === '\\') {
       specialLock = true
       return ''

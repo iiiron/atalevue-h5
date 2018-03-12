@@ -43,7 +43,7 @@ export default{
       var format = lodash.find(this.formatList, (val, ind) => {
         return val.model === this.model
       }).format || '%%%%%%%%%%%'
-      return weLodash.numberBunchFormat(this.value, format).replace(/ /g, '&nbsp;')
+      return weLodash.fillIn(this.value, format).replace(/ /g, '&nbsp;')
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "atalevue-h5",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "a vue module",
   "author": "wanxiangming1994 <miniqueue@foxmail.com>",
   "private": false,
@@ -14,9 +14,13 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "vue": "^2.5.2",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
+    "lodash": "^4.17.5",
+    "vue": "^2.5.15",
     "vue-router": "^3.0.1",
-    "lodash": "^4.17.5"
+    "vux": "^2.8.0",
+    "vux-loader": "^1.2.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -35,7 +39,7 @@
     "babel-register": "^6.22.0",
     "chalk": "^2.0.1",
     "chromedriver": "^2.36.0",
-    "copy-webpack-plugin": "^4.0.1",
+    "copy-webpack-plugin": "^4.5.1",
     "cross-spawn": "^5.0.1",
     "css-loader": "^0.28.0",
     "eslint": "^4.15.0",
@@ -65,12 +69,12 @@
     "selenium-server": "^3.0.1",
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",
-    "uglifyjs-webpack-plugin": "^1.1.1",
+    "uglifyjs-webpack-plugin": "^1.2.3",
     "url-loader": "^0.5.8",
     "vue-jest": "^1.0.2",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",
-    "vue-template-compiler": "^2.5.2",
+    "vue-template-compiler": "^2.5.15",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",
