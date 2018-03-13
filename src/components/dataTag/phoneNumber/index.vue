@@ -27,10 +27,10 @@ export default{
           format: '%%% %%%% %%%%'
         }, {
           model: 3,
-          format: '*******%%%%'
+          format: '_*_*_*_*_*_*_*%%%%'
         }, {
           model: 4,
-          format: '%%% **** %%%%'
+          format: '%%% _*_*_*_* %%%%'
         }]
       }
     }
