@@ -20,7 +20,7 @@
     <br>
     <!-- <basic-img :img="require('./logo.png')" @error="error"></basic-img> -->
     <br>
-    <!-- <basic-img @error="error"></basic-img> -->
+    <!-- <basic-img @error="error" :defaultImg=""></basic-img> -->
     <br>
     <state-button ref="btn" :isActive="isActive" :model="1" :value="'按钮'" @click="onClick" class="test"></state-button>
     <br>
@@ -38,29 +38,29 @@
 </template>
 
 <script>
-import commonInput from '@/components/input/commonInput'
-import idCardInput from '@/components/input/idCardInput'
-import imgValiInput from '@/components/input/imgValiInput'
-import moneyInput from '@/components/input/moneyInput'
-import msgValiInput from '@/components/input/msgValiInput'
-import passWordInput from '@/components/input/passWordInput'
-import phoneNumInput from '@/components/input/phoneNumInput'
-import pickInput from '@/components/input/pickInput'
-import userNameInput from '@/components/input/userNameInput'
+import CommonInput from '@/components/input/commonInput'
+import IdCardInput from '@/components/input/idCardInput'
+import ImgValiInput from '@/components/input/imgValiInput'
+import MoneyInput from '@/components/input/moneyInput'
+import MsgValiInput from '@/components/input/msgValiInput'
+import PassWordInput from '@/components/input/passWordInput'
+import PhoneNumInput from '@/components/input/phoneNumInput'
+import PickInput from '@/components/input/pickInput'
+import UserNameInput from '@/components/input/userNameInput'
 import InputManager from '@/components/input/InputManager.js'
 import CountDown from '@/utils/CountDown.js'
 import weLodash from '@/utils/weLodash.js'
 import weStorage from '@/utils/weStorage.js'
-import basicImg from '@/components/basicImg'
-import stateButton from './stateButton'
+import BasicImg from '@/components/basicImg'
+import StateButton from './stateButton'
 
-import popIframe from '@/components/popIframe'
-import numberKeyBoard from '@/components/numberKeyBoard'
+import PopIframe from '@/components/popIframe'
+import NumberKeyBoard from '@/components/numberKeyBoard'
 
-import bankCard from '@/components/dataTag/bankCard'
-import idCard from '@/components/dataTag/idCard'
-import money from '@/components/dataTag/money'
-import phoneNumber from '@/components/dataTag/phoneNumber'
+import BankCard from '@/components/dataTag/bankCard'
+import IdCard from '@/components/dataTag/idCard'
+import Money from '@/components/dataTag/money'
+import PhoneNumber from '@/components/dataTag/phoneNumber'
 
 export default {
   data () {
@@ -89,23 +89,23 @@ export default {
     }
   },
   components: {
-    commonInput,
-    idCardInput,
-    imgValiInput,
-    moneyInput,
-    msgValiInput,
-    passWordInput,
-    phoneNumInput,
-    pickInput,
-    userNameInput,
-    basicImg,
-    stateButton,
-    bankCard,
-    idCard,
-    money,
-    phoneNumber,
-    popIframe,
-    numberKeyBoard
+    CommonInput,
+    IdCardInput,
+    ImgValiInput,
+    MoneyInput,
+    MsgValiInput,
+    PassWordInput,
+    PhoneNumInput,
+    PickInput,
+    UserNameInput,
+    BasicImg,
+    StateButton,
+    BankCard,
+    IdCard,
+    Money,
+    PhoneNumber,
+    PopIframe,
+    NumberKeyBoard
   },
   mounted () {
     var im = new InputManager()

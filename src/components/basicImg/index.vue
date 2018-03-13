@@ -4,10 +4,10 @@
 </template>
 
 <script>
-export default{
+export default {
+  name: 'BasicImg',
   data () {
     return {
-      defaultImg: require('./default.png'),
       image: '',
 
       onError: () => {
@@ -17,7 +17,11 @@ export default{
     }
   },
   props: {
-    img: String
+    img: String,
+    defaultImg: {
+      type: String,
+      default: require('./default.png')
+    }
   },
   watch: {
     img (val) {

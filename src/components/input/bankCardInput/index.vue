@@ -6,7 +6,7 @@
 import BasicInput from '../basicInput'
 
 export default {
-  name: 'bankCardInput',
+  name: 'BankCardInput',
   data: function () {
     return {
       verifyInfo: '请输入银行卡号',

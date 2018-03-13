@@ -27,6 +27,7 @@ import InputManager from "./src/components/input/InputManager.js"
 import CountDown from "./src/utils/CountDown.js"
 import weStorage from "./src/utils/weStorage.js"
 import weLodash from "./src/utils/weLodash.js"
+import weEncrypt from "./src/utils/weEncrypt.js"
 
 export {
 	// input
@@ -59,5 +60,6 @@ export {
 	InputManager,
 	CountDown,
 	weStorage,
-	weLodash
+	weLodash,
+	weEncrypt
 }

@@ -7,7 +7,7 @@
 <script>
 import {Popup, InlineLoading} from 'vux'
 export default{
-  name: 'PopProtocol',
+  name: 'PopIframe',
   props: {
     url: String,
     title: String

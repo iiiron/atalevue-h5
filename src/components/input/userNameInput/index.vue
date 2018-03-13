@@ -6,7 +6,7 @@
 import BasicInput from '../basicInput'
 
 export default {
-  name: 'userNameInput',
+  name: 'UserNameInput',
   data: function () {
     return {
       verifyInfo: '请输入您的姓名',
