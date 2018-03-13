@@ -32,6 +32,8 @@
     <br>
     <phone-number :value="phone" :model="4"></phone-number>
     <br>
+    <name :value="'张三李四'" :model="1"></name>
+
     <number-key-board :value="keyShow" @finished="onInputFinished"></number-key-board>
     <pop-iframe ref="pop" :url="'https://www.baidu.com'"></pop-iframe>
   </div>
@@ -61,6 +63,7 @@ import BankCard from '@/components/dataTag/bankCard'
 import IdCard from '@/components/dataTag/idCard'
 import Money from '@/components/dataTag/money'
 import PhoneNumber from '@/components/dataTag/phoneNumber'
+import Name from '@/components/dataTag/name'
 
 export default {
   data () {
@@ -70,7 +73,7 @@ export default {
       phone: 13390146190,
       id: '502927199001270077',
       money: 1000,
-      keyShow: true,
+      keyShow: false,
 
       error: () => {
         console.log('img get error')
@@ -105,7 +108,8 @@ export default {
     Money,
     PhoneNumber,
     PopIframe,
-    NumberKeyBoard
+    NumberKeyBoard,
+    Name
   },
   mounted () {
     var im = new InputManager()
