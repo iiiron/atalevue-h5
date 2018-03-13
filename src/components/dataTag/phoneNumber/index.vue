@@ -4,7 +4,7 @@
 
 <script>
 import lodash from 'lodash'
-import weLodash from '@/utils/weLodash.js'
+import weLodash from '../../../utils/weLodash.js'
 export default{
   name: 'PhoneNumber',
   props: {

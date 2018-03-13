@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import accounting from '@/lib/accounting.js'
+import accounting from '../../../lib/accounting.js'
 
 export default {
   name: 'Money',
