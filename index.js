@@ -16,6 +16,7 @@ import BankCard from './src/components/dataTag/bankCard'
 import IdCard from './src/components/dataTag/idCard'
 import Money from './src/components/dataTag/money'
 import PhoneNumber from './src/components/dataTag/phoneNumber'
+import Name from './src/components/dataTag/name'
 
 import BasicImg from './src/components/basicImg'
 import LetterPositionList from './src/components/letterPositionList'
@@ -49,6 +50,7 @@ export {
 	IdCard,
 	Money,
 	PhoneNumber,
+	Name,
 
 	BasicImg,
 	LetterPositionList,
