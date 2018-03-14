@@ -9,7 +9,10 @@ export default {
     return {}
   },
   props: {
-    value: String,
+    value: {
+      type: String,
+      default: ''
+    },
     // 模式1：张*
     // 模式2：*三
     model: {
