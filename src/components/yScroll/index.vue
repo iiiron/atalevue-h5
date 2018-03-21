@@ -55,7 +55,7 @@ export default {
         probeType: 3
       })
       this.scroll.on('scroll',function () {
-        _this.$emit('scroll', this.y + _this.$refs.c2.offsetHeight - _this.height)
+        _this.$emit('scroll', this.y, _this.$refs.c2.offsetHeight, _this.height)
         if (this.y + _this.$refs.c2.offsetHeight - _this.height <= _this.loadLeadDistance) {
           _this.loadMore()
         }
