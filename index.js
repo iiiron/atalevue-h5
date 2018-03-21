@@ -23,6 +23,7 @@ import LetterPositionList from './src/components/letterPositionList'
 import NumberKeyBoard from './src/components/numberKeyBoard'
 import PopIframe from './src/components/popIframe'
 import StateButton from './src/components/stateButton'
+import YScroll from './src/components/yScroll'
 
 import InputManager from "./src/components/input/InputManager.js"
 import CountDown from "./src/utils/CountDown.js"
@@ -57,6 +58,7 @@ export {
 	NumberKeyBoard,
 	PopIframe,
 	StateButton,
+	YScroll,
 
 	// js
 	InputManager,
