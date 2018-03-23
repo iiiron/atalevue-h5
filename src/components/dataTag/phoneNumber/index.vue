@@ -40,9 +40,14 @@ export default{
   },
   computed: {
     number: function () {
-      var format = lodash.find(this.formatList, (val, ind) => {
-        return val.model === this.model
-      }).format || '%%%%%%%%%%%'
+      var format = ''
+      try {
+        format = lodash.find(this.formatList, (val, ind) => {
+          return val.model === this.model
+        }).format
+      } catch (e) {
+        format = '%%%%%%%%%%%'
+      }
       return weLodash.fillIn(this.value, format).replace(/ /g, '&nbsp;')
     }
   }
