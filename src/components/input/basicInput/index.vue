@@ -65,7 +65,7 @@ export default{
     this.debounce = lodash.debounce((newval, oldval) => {
       this.$emit('input', this.beforeOutput(newval), this.verify, this.verifyInfo)
     }, this.delay)
-    if (this.value !== undefined) {
+    if (this.value !== undefined && this.value !== null) {
       this.data = this.value
     }
   }
