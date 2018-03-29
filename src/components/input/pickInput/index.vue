@@ -11,7 +11,7 @@ export default {
   data: function () {
     return {
       verifyInfo: this.eMsg || '请输入选项',
-      afterVerifyPass: (nv, ov) => {
+      afterVerifyPass: (nv = '', ov) => {
         this.verify = true
         if (nv.length === 0) {
           this.verify = false

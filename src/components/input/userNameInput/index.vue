@@ -10,7 +10,7 @@ export default {
   data: function () {
     return {
       verifyInfo: '请输入您的姓名',
-      afterVerifyPass: (nv, ov) => {
+      afterVerifyPass: (nv = '', ov) => {
         this.verify = true
         if (nv.length === 0) {
           this.verifyInfo = '请输入您的真实姓名'

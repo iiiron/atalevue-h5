@@ -16,7 +16,7 @@ export default {
       passWordValidator: (nv) => {
         return /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/.test(nv)
       },
-      afterVerifyPass: (nv, ov) => {
+      afterVerifyPass: (nv = '', ov) => {
         this.verify = this.passWordValidator(nv)
         if (nv.length === 0) {
           this.verifyInfo = '请输入登陆密码'

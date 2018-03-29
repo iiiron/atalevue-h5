@@ -10,7 +10,7 @@ export default {
   data: function () {
     return {
       verifyInfo: '请输入银行卡号',
-      afterVerifyPass: (nv) => {
+      afterVerifyPass: (nv = '') => {
         this.verify = true
         if (nv.length === 0) {
           this.verifyInfo = '请输入银行卡号'

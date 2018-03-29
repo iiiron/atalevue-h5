@@ -11,8 +11,8 @@ export default {
   data: function () {
     return {
       verifyInfo: '请输入',
-      validator: (nv, ov) => {
-        if (nv === undefined || this.maxLength < nv.length) {
+      validator: (nv = '', ov) => {
+        if (this.maxLength < nv.length) {
           return false
         } else if (nv === '') {
           return true
@@ -23,7 +23,7 @@ export default {
           return reg.test(nv)
         }
       },
-      afterVerifyPass: (nv, ov) => {
+      afterVerifyPass: (nv = '', ov) => {
         this.verify = true
         if (nv.length === 0) {
           this.verifyInfo = this.nullErrorMsg
