@@ -51,6 +51,8 @@ weLodash.dateFormat = function (mdate, fmt) {
     mdate = mdate.replace(/-/g, '/')
     mdate = mdate.substring(0, (mdate.indexOf('.') === -1 ? mdate.length : mdate.indexOf('.')))
     mdate = new Date(mdate)
+  } else if (typeof mdate === 'number') {
+    mdate = new Date(mdate)
   } else if (mdate === undefined) {
     mdate = new Date()
   }

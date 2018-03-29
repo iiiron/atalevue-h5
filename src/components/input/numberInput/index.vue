@@ -12,7 +12,7 @@ export default {
     return {
       verifyInfo: '请输入',
       validator: (nv, ov) => {
-        if (this.maxLength < nv.length) {
+        if (nv === undefined || this.maxLength < nv.length) {
           return false
         } else if (nv === '') {
           return true
