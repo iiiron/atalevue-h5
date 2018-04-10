@@ -9,7 +9,8 @@
 </template>
 
 <script>
-import './iscroll-probe.js'
+/* eslint-disable */
+import IScroll from './iscroll-probe.js'
 import lodash from 'lodash'
 
 export default {
@@ -18,20 +19,26 @@ export default {
     return {
       id: '',
       scroll: null,
+      scrollY: 0,
+      
+      //该锁用于防止页面离开后触发loadMore回调
       loadLock: false,
 
       refreshScroll: () => {
         this.$nextTick(() => {
           this.scroll.refresh()
 
-          if (this.$refs.c2.offsetHeight - this.height <= -this.loadLeadDistance && !this.loadLock) {
-            this.loadMore()
-          }
+          this.tryLoad()
         })
       },
       loadMore: lodash.debounce(() => {
         this.$emit('loadMore')
-      }, 300, {maxWait:800})
+      }, 300, {maxWait:800}),
+      tryLoad: () => {
+        if (((this.$refs.c2.offsetHeight - this.height <= -this.loadLeadDistance) || (this.scrollY + this.$refs.c2.offsetHeight - this.height <= this.loadLeadDistance)) && !this.loadLock) {
+          this.loadMore()
+        }
+      }
     }
   },
   props: {
@@ -52,13 +59,13 @@ export default {
 
     this.$nextTick(() => {
       this.scroll = new IScroll('#'+this.id, {
-        probeType: 3
+        probeType: 3,
+        tap: true
       })
       this.scroll.on('scroll',function () {
         _this.$emit('scroll', this.y, _this.$refs.c2.offsetHeight, _this.height)
-        if (this.y + _this.$refs.c2.offsetHeight - _this.height <= _this.loadLeadDistance) {
-          _this.loadMore()
-        }
+        _this.scrollY = this.y
+        _this.tryLoad()
       })
     })
   },
@@ -68,6 +75,9 @@ export default {
   methods: {
     refresh: function () {
       this.refreshScroll()
+    },
+    tryLoadMore: function () {
+      this.tryLoad()
     }
   },
   watch: {
@@ -76,6 +86,7 @@ export default {
     }
   },
   activated () {
+    this.loadLock = false
     this.refreshScroll()
   },
   deactivated () {

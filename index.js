@@ -30,6 +30,7 @@ import CountDown from "./src/utils/CountDown.js"
 import weStorage from "./src/utils/weStorage.js"
 import weLodash from "./src/utils/weLodash.js"
 import weEncrypt from "./src/utils/weEncrypt.js"
+import weStoreFactory from './src/utils/weStoreFactory.js'
 
 export {
 	// input
@@ -65,5 +66,6 @@ export {
 	CountDown,
 	weStorage,
 	weLodash,
-	weEncrypt
+	weEncrypt,
+	weStoreFactory
 }

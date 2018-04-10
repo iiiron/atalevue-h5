@@ -40,6 +40,7 @@
 </template>
 
 <script>
+/* eslint-disable no-new */
 import CommonInput from '@/components/input/commonInput'
 import IdCardInput from '@/components/input/idCardInput'
 import ImgValiInput from '@/components/input/imgValiInput'
