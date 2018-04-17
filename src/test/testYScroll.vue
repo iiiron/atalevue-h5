@@ -1,7 +1,9 @@
 <template>
   <div>
     <y-scroll :height="300">
-      <input @click="onClick(val)" v-for="(val) in 6" :key="val">{{val}}</input>
+      <!-- <input @click="onClick(val)" v-for="(val) in 6" :key="val">{{val}} > -->
+      <div @click="onClick(val)" v-for="(val) in 30" :key="val">{{val}} </div>
+      <!-- <a @click="onClick(val)" v-for="(val) in 6" :key="val">{{val}} </a> -->
     </y-scroll>
   </div>
 </template>

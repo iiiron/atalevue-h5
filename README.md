@@ -13,7 +13,7 @@
 
 <a id="abstract"></a>
 
-## 简介 {#abstract}
+# 简介 {#abstract}
 
 在实际开发过程中，我们根据需求提炼了一些实用的组件。它们不同于UI框架所提供的组件，我们所提供的，是一些几乎没有样式的功能性组件，它们的样式完全可由客户端程序员来自定制。例如只为格式化身份证号，手机号，银行卡号的"IdCard"，"PhoneNumber"，"BankCard"组件；例如只为更完备的控制数据输入的各类input组件。它们甚至选择故意将根节点暴露给客户端程序员，以便你可以更自由的使用它们。
 
@@ -33,12 +33,11 @@ npm install atalevue-h5
 
 <a id="jsTool"></a>
 
-js工具 {#jsTool}
-===
+# js工具 {#jsTool}
 
 <a id="weStoreFactory"></a>
 
-#### weStoreFactory {#weStoreFactory}
+### weStoreFactory {#weStoreFactory}
 
 weStoreFactory是一个用来生成store的工厂函数。
 
@@ -91,7 +90,7 @@ weStoreFactory是一个用来生成store的工厂函数。
 
 ```javascript
 var store = weStoreFactory(
-    {
+  {
         state:
             name: {
                 default: '张三',
@@ -124,7 +123,7 @@ console.log(store.computed.nominalAge) //19
 
 <a id="weEncrypt"></a>
 
-#### weEncrypt {#weEncrypt}
+### weEncrypt {#weEncrypt}
 
 weEncrypt是一个用来处理AES和RSA加密的对象，它有5个封装好的方法提供给客户端程序员使用。
 
@@ -192,7 +191,7 @@ weEncrypt是一个用来处理AES和RSA加密的对象，它有5个封装好的�
 
 <a id="weLodash"></a>
 
-#### weLodash {#weLodash}
+### weLodash {#weLodash}
 
 这是一个琐碎的工具函数集合
 
@@ -240,7 +239,7 @@ weEncrypt是一个用来处理AES和RSA加密的对象，它有5个封装好的�
 
             coeLine (Number) : 标准线
 
-            coeRange (Number) : 基于标准线的容错区间
+            coeRange (Number) : 基于标准线的容错区间，该区间是在标准线的基础上加减coeRange值得出的
 
             coeTimes (Integer) : 超出容错区间时的重随次数
 
@@ -278,7 +277,7 @@ weEncrypt是一个用来处理AES和RSA加密的对象，它有5个封装好的�
 
 <a id="weStorage"></a>
 
-#### weStorage {#weStorage}
+### weStorage {#weStorage}
 
 持久化存储器，用来屏蔽具体的底层的持久化操作，让上层代码可以不去关心具体的持久化实现。
 

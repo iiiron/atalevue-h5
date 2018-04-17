@@ -3,31 +3,14 @@
 </template>
 
 <script>
-import accounting from '../../../lib/accounting.js'
+import {Money} from 'atalevue'
 
 export default {
   name: 'Money',
-  props: {
-    value: {
-      type: [String, Number],
-      default: 0
-    },
-    isCover: {
-      type: Boolean,
-      default: false
-    }
-  },
   data () {
-    return {
-      cov: '******',
-      cover: false
-    }
+    return {}
   },
-  computed: {
-    money: function () {
-      return this.isCover ? '******' : accounting.formatMoney(this.value)
-    }
-  }
+  extends: Money
 }
 </script>
 
