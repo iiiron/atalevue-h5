@@ -1,7 +1,9 @@
 <template>
-  <popup v-model="showPop" :position="'right'" :width="'100%'">
-    <iframe ref="iframe" v-if="showPop" :src="url" style="width:99%;height:99%"></iframe>
-  </popup>
+  <!-- <popup v-model="showPop" :position="'right'" :width="'100%'"> -->
+  <div style="height:100%;width:100%;position: absolute;z-index: 100000;top:0;" v-show="showPop">
+    <iframe ref="iframe" v-if="showPop" :src="url" style="width:100%;height:100%"></iframe>
+  </div>
+  <!-- </popup> -->
 </template>
 
 <script>

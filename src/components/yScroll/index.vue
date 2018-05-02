@@ -117,5 +117,6 @@ export default {
 .weScroll-scroller {
   position: absolute;
   width: 100%;
+  -webkit-overflow-scrolling : touch; 
 }
 </style>

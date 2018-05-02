@@ -3,7 +3,7 @@ import { BasicInput, BankCardInput, CommonInput, IdCardInput,
 	ImgValiInput, MoneyInput, MsgValiInput, NumberInput, PassWordInput, 
 	PhoneNumInput, PickInput, UserNameInput } from 'atalevue'
 	
-import { InputManager, CountDown, weStorage, weLodash, weEncrypt, weStoreFactory } from 'atalevue'
+import { InputManager, CountDown, weStorage, weLodash, weStoreFactory } from 'atalevue'
 
 import BankCard from './src/components/dataTag/bankCard'
 import IdCard from './src/components/dataTag/idCard'
@@ -17,6 +17,8 @@ import NumberKeyBoard from './src/components/numberKeyBoard'
 import PopIframe from './src/components/popIframe'
 import StateButton from './src/components/stateButton'
 import YScroll from './src/components/yScroll'
+
+import weEncrypt from './src/utils/weEncrypt.js'
 
 export {
 	// input

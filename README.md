@@ -8,6 +8,17 @@
     - [weEncrypt](#weEncrypt)
     - [weLodash](#weLodash)
     - [weStorage](#weStorage)
+- [vue组件](#vueComponents)
+    - [BasicImg](#BasicImg)
+    - [BankCard](#BankCard)
+    - [IdCard](#IdCard)
+    - [PhoneNumber](#PhoneNumber)
+    - [Money](#Money)
+    - [Name](#Name)
+    - [PopIframe](#PopIframe)
+    - [StateButton](#StateButton)
+    - [YScroll](#YScroll)
+    - [LetterPositionList](#LetterPositionList)
 
 <!-- /MarkdownTOC -->
 
@@ -330,6 +341,512 @@ weEncrypt是一个用来处理AES和RSA加密的对象，它有5个封装好的�
         - 说明
 
             移除token
+<a id="vueComponents"></a>
+
+# vue组件 {#vueComponents}
+
+<a id="BasicImg"></a>
+
+### BasicImg {#BasicImg}
+
+```
+import { BasicImg } from 'atalevue-h5'
+
+export default {
+    components: {
+        BasicImg
+    }
+}
+```
+
+- 属性
+
+    - img: String
+
+        图片的url
+
+    - defaultImg: String
+
+        默认加载图片的url
+
+- 说明
+    
+    该组件是一个图片加载组件，用来处理当加载图片“img”失败时，自动加载“defaultImg”。它有且仅有一个dom元素（<img\>元素），你几乎可以像使用<img\>一样使用它。
+
+<a id="BankCard"></a>
+
+### BankCard {#BankCard}
+
+```
+import { BankCard } from 'atalevue-h5'
+
+export default {
+    components: {
+        BankCard
+    }
+}
+```
+
+- 属性
+
+    - value: String
+
+        银行卡号
+
+    - model: Number
+
+        显示模式编号，默认是0
+
+    - formatList: Array
+
+        格式列表，也就是模式列表。在此注册的模式，可通过model参数选择。该属性默认值请参看说明。
+
+- 说明
+
+    formatList是配合weLodash中的fillIn()方法来使用的，它会根据format中，下划线（_），星号（*），尖号（^），百分号（%）的个数来判断用户输入的value，适用的格式化参数。**格式化参数的作用请看weLodash.fillIn()。**  
+
+    **重要**：虽然formatList是该组件的参数，但我不推荐你频繁的在引用该组件的地方去通过传参实现自定义格式，假如你有特殊的需要，可以通过继承该组件，修改其默认formatList属性，以避免在项目中散落太多细节，导致代码不可维护。
+
+        例如：
+        模式1下，16位的value将会被匹配'_*_*_*_*_*_*_*_*_*_*_*_*%%%%'这条格式参数；
+        19位的value将会被匹配'_*_*_*_*_*_*_*_*_*_*_*_*^^^%%%%'
 
 
+        //formatList的默认实现如下：
 
+        formatList: {
+          type: Array,
+          default: function () {
+            return [{
+              model: 1,
+              format: [
+                '_*_*_*_*_*_*_*_*_*_*_*_*%%%%',
+                '_*_*_*_*_*_*_*_*_*_*_*_*^^%%%%',
+                '_*_*_*_*_*_*_*_*_*_*_*_*^^^%%%%'
+              ]
+            }, {
+              model: 2,
+              format: [
+                '_*_*_*_* _*_*_*_* _*_*_*_* %%%%',
+                '_*_*_*_* _*_*_*_* _*_*_*_*^^ %%%%',
+                '_*_*_*_* _*_*_*_* _*_*_*_*^^^ %%%%'
+              ]
+            }, {
+              model: 3,
+              format: [
+                '%%%% _*_*_*_* _*_*_*_* %%%%',
+                '%%%% _*_*_*_* _*_*_*_*^^ %%%%',
+                '%%%% _*_*_*_* _*_*_*_*^^^ %%%%'
+              ]
+            }]
+        }
+
+<a id="IdCard"></a>
+
+### IdCard {#IdCard}
+
+```
+import { IdCard } from 'atalevue-h5'
+
+export default {
+    components: {
+        IdCard
+    }
+}
+```
+
+- 属性
+
+    - value: String
+
+    - model: Number
+
+    - formatList: Array
+
+- 说明
+
+    所有参数用法，**参看[BankCard](#BankCard)组件**
+
+        //formatList默认值：
+        formatList: {
+          type: Array,
+          default: function () {
+            return [{
+              model: 1,
+              format: [
+                '_*_*_*_*_*_*_*_*_*_****%%%%',
+                '_*_*_*_*_*_*_*_*_*_*_*_*_*_*%%%%'
+              ]
+            }, {
+              model: 2,
+              format: [
+                '%%%%_*_*_*_*_*_*_****%%%%',
+                '%%%%_*_*_*_*_*_*_*_*_*_*%%%%'
+              ]
+            }]
+          }
+        }
+
+<a id="PhoneNumber"></a>
+
+### PhoneNumber {#PhoneNumber}
+
+```
+import { PhoneNumber } from 'atalevue-h5'
+
+export default {
+    components: {
+        PhoneNumber
+    }
+}
+```
+
+- 属性 
+
+    - value: String
+
+    - model: Number
+
+    - formatList: Array
+
+- 说明
+
+    所有参数用法，**参看[BankCard](#BankCard)组件**
+
+        //formatList默认值：
+        formatList: {
+          type: Array,
+          default: function () {
+            return [{
+              model: 1,
+              format: '%%%-%%%%-%%%%'
+            }, {
+              model: 2,
+              format: '%%% %%%% %%%%'
+            }, {
+              model: 3,
+              format: '_*_*_*_*_*_*_*%%%%'
+            }, {
+              model: 4,
+              format: '%%% _*_*_*_* %%%%'
+            }]
+          }
+        }
+
+<a id="Money"></a>
+
+### Money {#Money}
+
+```
+import { Money } from 'atalevue-h5'
+
+export default {
+    components: {
+        Money
+    }
+}
+```
+
+- 属性
+
+    - value：[String,Number]
+
+        默认Number类型0
+
+    - isCover: boolean
+
+        默认false
+
+- 说明
+    
+    该组件将金额格式化为两位小数，千分位待逗号的格式。如：100,000,000.00。当isCover为true时，金额变为6个星号‘\*\*\*\*\*\*’
+
+<a id="Name"></a>
+
+### Name {#Name}
+
+```
+import { Name } from 'atalevue-h5'
+
+export default {
+    components: {
+        Name
+    }
+}
+```
+
+- 属性
+
+    - value: String
+
+        中文名字。
+
+    - model: Number
+
+        名字的显示模式，默认0，即无模式。
+
+- 说明
+
+        模式1：张*
+        模式2：*三
+
+<a id="PopIframe"></a>
+
+### PopIframe {#PopIframe}
+
+```
+import { PopIframe } from 'atalevue-h5'
+
+export default {
+    components: {
+        PopIframe
+    }
+}
+```
+
+- 属性
+
+    - url: String
+
+        被加载页面url
+
+    - title: String
+
+        弹出框的title
+
+- 方法
+
+    - show()
+
+        显示pop
+
+    - hide()
+
+        隐藏pop
+
+<a id="StateButton"></a>
+
+### StateButton {#StateButton}
+
+```
+import { StateButton } from 'atalevue-h5'
+
+export default {
+    components: {
+        StateButton
+    }
+}
+```
+
+- 属性
+
+    - isActive: Boolean
+
+        按钮是否活跃，默认true
+
+    - value: String
+
+        按钮上的文字
+
+    - notActiveStyle: Object
+
+        class风格的css样式，会在isActive处于false时启用
+
+    - activeStyle: Object
+
+        class风格的css样式，会在isActive处于true时启用
+
+- 方法
+
+    - click()
+
+        模拟一次按钮点击
+
+- 事件
+
+    - click()
+
+        当按钮被点击时触发，只有isActive为true时才会触发该事件
+
+    - clickFail()
+
+        当isActive为false时按钮被点击，该事件被触发
+
+<a id="YScroll"></a>
+
+### YScroll {#YScroll}
+
+```
+import { YScroll } from 'atalevue-h5'
+
+export default {
+    components: {
+        YScroll
+    }
+}
+```
+
+- 属性
+
+    - height: Number
+
+        指定该组件的高度，默认值0
+
+    - loadLeadDistance: Number
+
+        指定触发loadMore的提前量，当其为0时，只有YScroll完全滑动到底部时才会触发loadMore。默认值20，其单位为px
+
+- 方法
+
+    - tryLoadMore()
+
+        尝试加载更多数据，它不会直接触发loadMore事件，但它会去检查触发loadMore的条件是否满足，如果满足则触发loadMore事件。该方法提供了一种手动触发检查的途径，某些复杂使用场景下，你可能会用得到它
+
+- 事件
+
+    - loadMore()
+
+        当YScroll中的内容没有填充满，或者YScroll滑动到底部时，该事件会触发
+
+    - scroll(scrollHeight,contentHeight,containerHeight)
+
+        当YScroll滚动的时候会触发该事件，该事件传出三个参数，第一个参数是滚动距离，第二个参数是YScroll中内容的内容高度，第三个参数是YScroll的可见高度
+
+- 说明
+
+    用它做InfiniteScroll是很简单的，但因为这种需求场景千差万别，我们便没有将它做成InfiniteScroll，不过我这里给大家一个基于vux的实现
+
+        <template>
+          <div>
+            <y-scroll ref="scroll" :height="height" @loadMore="loadMore">
+              <slot name="default"></slot>
+              <load-more ref="load" :tip="loadContent" :show-loading="loadContent === '正在加载'"></load-more>
+            </y-scroll>
+          </div>
+        </template>
+
+        <script>
+        import { YScroll } from 'atalevue-h5'
+        import { LoadMore } from 'vux'
+
+        export default {
+          components: {
+            YScroll,
+            LoadMore
+          },
+          data () {
+            return {
+              loadContent: '正在加载',
+              isLoadLock: false,
+
+              loadMore: () => {
+                if (this.loadContent !== '正在加载' || this.isLoadLock) {
+                  return 
+                }
+
+                this.isLoadLock = true
+                this.$emit('loadMore',this)
+              }
+            }
+          },
+          props: {
+            height: {
+              type: Number,
+              default: window.innerHeight
+            },
+            loadLeadDistance: {
+              type: Number,
+              default: 70
+            }
+          },
+          watch: {
+            maxPage: function (v) {
+              this.maxPageSelf = v
+            }
+          },
+          methods: {
+            finished: function (maxPages, currentPages) {
+              this.isLoadLock = false
+
+              if (maxPages === 0) {
+                this.loadContent = '暂无数据'
+              } else if (maxPages > currentPages) {
+                this.loadContent = '正在加载'
+              } else {
+                this.loadContent = '暂无更多'
+              }
+            },
+            tryLoadMore: function () {
+              this.isLoadLock = false
+              this.$refs.scroll.tryLoadMore()
+            },
+            refresh: function () {
+              this.isLoadLock = false
+              this.loadContent = '正在加载'
+              this.$refs.scroll.tryLoadMore()
+            }
+          }
+        }
+        </script>
+
+<a id="LetterPositionList"></a>
+
+### LetterPositionList {#LetterPositionList}
+
+```
+import { LetterPositionList } from 'atalevue-h5'
+
+export default {
+    components: {
+        LetterPositionList
+    }
+}
+```
+
+- 属性
+
+    - data: Array
+
+        数据数组
+
+    - slide: Boolean
+
+        是否使用动画。为false时，左侧内容是跳变到对应字母的；为true时，左侧内容滑动到对应字母
+
+- 事件
+
+    - on-pick(name, value)
+
+        当选中时触发
+
+- 说明
+        
+        //参数示例
+        data: [
+            {
+                letter: A,
+                data: [
+                    {
+                        name: 'xxx',
+                        value: 1
+                    },
+                    {
+                        name: 'yyy',
+                        value: 2
+                    }
+                ]
+            },
+            {
+                letter: B,
+                data: [
+                    {
+                        name: 'zzz',
+                        value: 5
+                    },
+                    {
+                        name: 'www',
+                        value: 8
+                    }
+                ]
+            }
+        ]

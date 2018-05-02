@@ -1,19 +1,18 @@
 <template>
   <div>
-    <y-scroll :height="300">
-      <!-- <input @click="onClick(val)" v-for="(val) in 6" :key="val">{{val}} > -->
-      <div @click="onClick(val)" v-for="(val) in 30" :key="val">{{val}} </div>
-      <!-- <a @click="onClick(val)" v-for="(val) in 6" :key="val">{{val}} </a> -->
-    </y-scroll>
+    <pop-iframe :url="'http://www.baidu.com'" ref="pop"></pop-iframe>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
 import yScroll from '../components/yScroll'
+import popIframe from '../components/popIframe'
+
 export default {
   components: {
-    yScroll
+    yScroll,
+    popIframe
   },
   data () {
     return {
@@ -21,6 +20,14 @@ export default {
         alert(val)
       }
     }
+  },
+  mounted () {
+    setTimeout(() => {
+      this.$refs.pop.show()
+    }, 3000)
+    setTimeout(() => {
+      this.$refs.pop.hide()
+    }, 7000)
   }
 }
 </script>
