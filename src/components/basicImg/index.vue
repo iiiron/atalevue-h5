@@ -25,7 +25,7 @@ export default {
   },
   watch: {
     img (val) {
-      this.image = val
+      this.image = val === undefined || val === null || val === '' ? this.defaultImg : val
     }
   },
   created () {

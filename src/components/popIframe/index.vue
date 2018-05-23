@@ -1,9 +1,9 @@
 <template>
-  <!-- <popup v-model="showPop" :position="'right'" :width="'100%'"> -->
-  <div style="height:100%;width:100%;position: absolute;z-index: 100000;top:0;" v-show="showPop">
-    <iframe ref="iframe" v-if="showPop" :src="url" style="width:100%;height:100%"></iframe>
+  <div>
+    <div class="popiframe-c" v-show="showPop">
+      <iframe ref="iframe" v-if="showPop" :src="url" class="popiframe-c2"></iframe>
+    </div>
   </div>
-  <!-- </popup> -->
 </template>
 
 <script>
@@ -69,3 +69,32 @@ export default{
   }
 }
 </script>
+
+<style scoped>
+.popiframe-c {
+ /* height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;*/
+
+  position: fixed;
+  right: 0;    
+  bottom: 0;    
+  left: 0;   
+  top: 0;   
+  width: 100%;
+  z-index: 1000;
+  height: 100%;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+.popiframe-c2 {
+  height: 100%;
+  width: 100%;
+  border: 0 none;
+}
+</style>

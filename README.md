@@ -19,6 +19,10 @@
     - [StateButton](#StateButton)
     - [YScroll](#YScroll)
     - [LetterPositionList](#LetterPositionList)
+    - [BasicInput](#BasicInput)
+    - BankCardInput
+    - IdCardInput
+    - NumberInput
 
 <!-- /MarkdownTOC -->
 
@@ -850,3 +854,222 @@ export default {
                 ]
             }
         ]
+
+<a id="BasicInput"></a>
+
+### BasicInput {#BasicInput}
+
+```
+import { BasicInput } from 'atalevue-h5'
+
+export default {
+    components: {
+        BasicInput
+    }
+}
+```
+
+- 属性
+
+    - value: String
+
+        用户输入的内容
+
+    - delay: Number
+
+        输入防抖动延时，默认0，即不延时
+
+- 方法
+
+    - getVerify()
+
+        获取验证结果，返回Boolean，true表示验证通过，false表示验证失败
+
+    - getVerifyInfo()
+
+        获取验证结果信息，返回String
+
+- 事件
+
+    - input()
+
+        当用户输入时，触发input事件
+
+- 说明
+
+    BasicInput是一个扩展性很强的组件，推荐通过继承的方式来实现你自己的输入组件。该组件的data中提供了几个你可以通过继承并覆盖其实现而扩展功能的方法。它们分别是：**validator(), afterVerifyPass(), beforeOutput()**，以及两个私有属性：**verify，verifyInfo**。下面逐一说明。
+
+        validator(newValue, oldValue)
+
+            该方法会在用户输入信息时最先被调用，它必须反回一个Boolean，当返回true时，afterVerifyPass()
+            方法将会被调用；当返回false，用户的当次输入将被回撤。因此你可以用它实现强制校验的功能，例如
+            用户无法输入非法字符。
+
+        afterVerifyPass(newValue, oldValue)
+
+            该方法在用户的输入已经通过validator()方法的校验的情况下被触发。你可以在这里修改verify属性和
+            verifyInfo属性，这两个属性可以配合InputManager工作。当然你可以在这里完成一些其他的工作。
+
+        beforeOutput(value)
+
+            这个方法是用户输入被input事件带出前的最后一个钩子函数，它需要返回一个字符串，该字符串将会最终
+            呈现在输入框内。所以其默认实现就是return参数，即不对输入做任何处理。
+
+    除了上述三个方法，还有两个私有属性很重要，当你要配合InputManager来使用input时，这两个值必须被正确的操控，否则InputManager将不会按照你的期望工作。
+
+        verify，这个属性用于存放验证结果，它是个Boolean值。你可以在任何一个钩子函数中设置它的值。
+
+        verifyInfo，这个属性用于存放验证结果信息，它是String值。你可以在任何一个钩子函数中设置它的值。
+
+    下面是BasicInput的data的声明情况，贴出来，以便你清楚如何继承并重写相关方法。
+
+        export default {
+            data () {
+                return {
+                  // 强制校验器，返回值为false时，会强制回退当次输入。
+                  validator: function (nv, ov) { return true },
+                  // 输入校验结果，它并不是强制校验器的结果。
+                  // 你可以通过各个钩子函数来修改这个值，该值会被input事件带出
+                  verify: false,
+                  // 输入校验提示信息，它并不是强制校验器的结果。
+                  // 你可以通过各个钩子函数来修改这个值，该值会被input事件带出
+                  verifyInfo: '',
+                  // 验证通过后的钩子函数
+                  afterVerifyPass: function (nv, ov) {},
+                  // 内容输出前的勾子函数，需要返回输出值，该函数可影响最终的输出值，
+                  // 多次连续输入后，只在debounce延迟结束时触发一次该钩子函数，
+                  // 若延迟为0，则每次输入都触发该函数
+                  beforeOutput: function (val) { return val }
+                }
+            }
+        }
+  
+
+    **后文将介绍的所有Input组件，都是继承于BasicInput的**
+
+### BankCardInput
+
+```
+import { BankCardInput } from 'atalevue-h5'
+
+export default {
+    components: {
+        BankCardInput
+    }
+}
+```
+
+属性，方法参考[BasicInput](#BasicInput)
+
+重写了afterVerifyPass()方法
+
+    afterVerifyPass: (nv = '') => {
+        this.verify = true
+        if (nv.length === 0) {
+            this.verifyInfo = '请输入银行卡号'
+            this.verify = false
+        } else if (!(/^[0-9]{15,22}$/.test(nv))) {
+            this.verifyInfo = '请输入正确的银行卡号'
+            this.verify = false
+        }
+    }
+
+### IdCardInput
+
+```
+import { IdCardInput } from 'atalevue-h5'
+
+export default {
+    components: {
+        IdCardInput
+    }
+}
+```
+
+属性，方法参考[BasicInput](#BasicInput)
+
+重写了afterVerifyPass()方法
+
+    afterVerifyPass: (nv = '', ov) => {
+        this.verify = true
+        if (nv.length === 0) {
+            this.verifyInfo = '请输入您的身份证号'
+            this.verify = false
+        } else if (!(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(nv))) {
+            this.verifyInfo = '您的身份证号码输入有误，请重新输入'
+            this.verify = false
+        }
+    }
+
+### NumberInput
+
+```
+import { NumberInput } from 'atalevue-h5'
+
+export default {
+    components: {
+        NumberInput
+    }
+}
+```
+
+属性，方法参考[BasicInput](#BasicInput)
+
+- 扩展属性
+
+    - maxLength: Number
+
+        可输入的最长位数，小数点也算一位。**强制校验**
+
+    - float: Number
+
+        可输入的小数位数，**强制校验**
+
+    - unsigned: Boolean
+
+        是否支持正负符号，默认为true，即支持正负号，**强制校验**
+
+    - max: Number
+    
+        输入的最大数字，**非强制**
+
+    - min: Number
+
+        输入的最小数字，**非强制**
+
+    - maxErrorMsg: String
+
+        超过最大值时verifyInfo被赋予的值
+
+    - minErrorMsg: String
+
+重写了validator()和afterVerifyPass()方法
+
+    validator: (nv = '', ov) => {
+        if (this.maxLength < nv.length) {
+            return false
+        } else if (nv === '') {
+            return true
+        } else {
+            var unsigned = this.unsigned ? '-?' : ''
+            var dot = this.float <= 0 ? '' : '\\.?'
+            var reg = new RegExp('^' + unsigned + '\\d*' + dot + '\\d{0,' + this.float + '}$')
+            return reg.test(nv)
+        }
+    }
+
+    afterVerifyPass: (nv = '', ov) => {
+        this.verify = true
+        if (nv.length === 0) {
+            this.verifyInfo = this.nullErrorMsg
+            this.verify = false
+        } else if (Number(nv) < this.min) {
+            this.verifyInfo = this.minErrorMsg
+            this.$emit('on-lessMin', this.maxErrorMsg)
+            this.verify = false
+        } else if (this.max < Number(nv)) {
+            this.verifyInfo = this.maxErrorMsg
+            this.$emit('on-overMax', this.maxErrorMsg)
+            this.verify = false
+        }
+    }

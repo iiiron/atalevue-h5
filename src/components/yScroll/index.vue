@@ -1,6 +1,6 @@
 <template>
   <div ref="c">
-    <div :id="id" class="weScroll-wrapper" :style="{height: height + 'px'}" @scroll="onScroll">
+    <div ref="scroll" :id="id" class="weScroll-wrapper" :style="{height: height + 'px'}" @scroll="onScroll">
       <div ref="c2" class="weScroll-scroller">
         <slot></slot>
       </div>
@@ -10,8 +10,6 @@
 
 <script>
 /* eslint-disable */
-// import './iscroll-probe.js'
-// import IScroll from './iscroll-probe.js'
 import lodash from 'lodash'
 
 export default {
@@ -27,8 +25,6 @@ export default {
 
       refreshScroll: () => {
         this.$nextTick(() => {
-          // this.scroll.refresh()
-
           this.tryLoad()
         })
       },
@@ -36,7 +32,7 @@ export default {
         this.$emit('loadMore')
       }, 300, {maxWait:800}),
       tryLoad: () => {
-        if (((this.$refs.c2.offsetHeight - this.height <= -this.loadLeadDistance) || (this.scrollY + this.$refs.c2.offsetHeight - this.height <= this.loadLeadDistance)) && !this.loadLock) {
+        if (((this.$refs.c2.offsetHeight - this.height <= -this.loadLeadDistance) || (-this.scrollY + this.$refs.c2.offsetHeight - this.height <= this.loadLeadDistance)) && !this.loadLock) {
           this.loadMore()
         }
       },
@@ -44,7 +40,7 @@ export default {
         let y = e.target.scrollTop
 
         this.$emit('scroll', y, this.$refs.c2.offsetHeight, this.height)
-        this.scrollY = -y
+        this.scrollY = y
         this.tryLoad()
       }
     }
@@ -61,24 +57,6 @@ export default {
   },
   created () {
     this.id = 'weTab' + parseInt(Math.random() * 10000000)
-  },
-  mounted () {
-    // var _this = this
-
-    // this.$nextTick(() => {
-    //   this.scroll = new IScroll('#'+this.id, {
-    //     probeType: 3,
-    //     tap: true,
-    //     preventDefault: true,
-    //     click: true,
-    //     preventDefaultException: { tagName: /^(INPUT|TEXTAREA|BUTTON|SELECT|SVG)$/ }
-    //   })
-    //   this.scroll.on('scroll',function () {
-    //     _this.$emit('scroll', this.y, _this.$refs.c2.offsetHeight, _this.height)
-    //     _this.scrollY = this.y
-    //     _this.tryLoad()
-    //   })
-    // })
   },
   updated () {
     this.refreshScroll()
@@ -99,6 +77,7 @@ export default {
   activated () {
     this.loadLock = false
     this.refreshScroll()
+    this.$refs.scroll.scrollTop = this.scrollY
   },
   deactivated () {
     this.loadLock = true
