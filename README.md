@@ -8,6 +8,7 @@
     - [weEncrypt](#weEncrypt)
     - [weLodash](#weLodash)
     - [weStorage](#weStorage)
+    - [InputManager](#InputManager)
 - [vue组件](#vueComponents)
     - [BasicImg](#BasicImg)
     - [BankCard](#BankCard)
@@ -20,9 +21,17 @@
     - [YScroll](#YScroll)
     - [LetterPositionList](#LetterPositionList)
     - [BasicInput](#BasicInput)
-    - BankCardInput
-    - IdCardInput
-    - NumberInput
+    - [BankCardInput](#BankCardInput)
+    - [IdCardInput](#IdCardInput)
+    - [NumberInput](#NumberInput)
+    - [ImgValiInput](#ImgValiInput)
+    - [CommonInput](#CommonInput)
+    - [MoneyInput](#MoneyInput)
+    - [MsgValiInput](#MsgValiInput)
+    - [PassWordInput](#PassWordInput)
+    - [PhoneNumInput](#PhoneNumInput)
+    - [PickInput](#PickInput)
+    - [UserNameInput](#UserNameInput)
 
 <!-- /MarkdownTOC -->
 
@@ -103,10 +112,10 @@ weStoreFactory是一个用来生成store的工厂函数。
 
 代码示例
 
-```javascript
+``` javascript
 var store = weStoreFactory(
   {
-        state:
+        state:{
             name: {
                 default: '张三',
                 committer: function (value, state, computed) {
@@ -134,7 +143,9 @@ store.commit('name','李四')
 console.log(store.state.name) //李四
 console.log(store.state.age) //18
 console.log(store.computed.nominalAge) //19
+
 ```
+
 
 <a id="weEncrypt"></a>
 
@@ -345,6 +356,35 @@ weEncrypt是一个用来处理AES和RSA加密的对象，它有5个封装好的�
         - 说明
 
             移除token
+
+<a id="InputManager"></a>
+
+### InputManager {#InputManager}
+
+该组件**专门用来管理该项目中BasicInput及其子组件**（及继承于BasicInput的各个组件）。
+
+- 类型: Object
+
+- 成员函数：
+
+    - put(input)
+
+        - 参数
+
+            input (? extends BasicInput)：要推给InputManager管理的input，input必须继承自BasicInput。
+
+    - onChange(fun)
+
+        - 参数
+
+            fun (Function)：fun是一个回调函数。当被InputManager管理的任何一个input发生变化的时候，fun函数就会被触发。
+
+    - findFail()
+
+        - 返回值
+
+            input(? extends BasicInput)组件的vue实例，你可以通过它获取被InputManager管理的input中输入内容处于错误的那个input组件实例，如果有多个input处于错误状态，它会按照put函数推入的顺序，返回第一个错误的input。
+
 <a id="vueComponents"></a>
 
 # vue组件 {#vueComponents}
@@ -947,7 +987,9 @@ export default {
 
     **后文将介绍的所有Input组件，都是继承于BasicInput的**
 
-### BankCardInput
+<a id="BankCardInput"></a>
+
+### BankCardInput {#BankCardInput}
 
 ```
 import { BankCardInput } from 'atalevue-h5'
@@ -974,7 +1016,9 @@ export default {
         }
     }
 
-### IdCardInput
+<a id="IdCardInput"></a>
+
+### IdCardInput {#IdCardInput}
 
 ```
 import { IdCardInput } from 'atalevue-h5'
@@ -1001,7 +1045,9 @@ export default {
         }
     }
 
-### NumberInput
+<a id="NumberInput"></a>
+
+### NumberInput {#NumberInput}
 
 ```
 import { NumberInput } from 'atalevue-h5'
@@ -1043,6 +1089,12 @@ export default {
 
     - minErrorMsg: String
 
+        不足最小值时verifyInfo被赋予的值
+
+    - nullErrorMsg: String
+
+        输入为空字符串时verifyInfo被赋予的值
+
 重写了validator()和afterVerifyPass()方法
 
     validator: (nv = '', ov) => {
@@ -1070,6 +1122,291 @@ export default {
         } else if (this.max < Number(nv)) {
             this.verifyInfo = this.maxErrorMsg
             this.$emit('on-overMax', this.maxErrorMsg)
+            this.verify = false
+        }
+    }
+
+<a id="ImgValiInput"></a>
+
+### ImgValiInput {#ImgValiInput}
+
+```
+import { ImgValiInput } from 'atalevue-h5'
+
+export default {
+    components: {
+        ImgValiInput
+    }
+}
+```
+
+属性，方法参考[BasicInput](#BasicInput)
+
+重写了afterVerifyPass()方法
+
+    afterVerifyPass: (nv = '', ov) => {
+        this.verify = true
+        if (nv.length === 0) {
+            this.verifyInfo = '请输入验证码'
+            this.verify = false
+        } else if (nv.length !== 4) {
+            this.verifyInfo = '请输入正确的验证码'
+            this.verify = false
+        }
+    }
+
+<a id="CommonInput"></a>
+
+### CommonInput {#CommonInput}
+
+```
+import { CommonInput } from 'atalevue-h5'
+
+export default {
+    components: {
+        CommonInput
+    }
+}
+```
+
+属性，方法参考[BasicInput](#BasicInput)
+
+重写了afterVerifyPass()方法
+    
+    afterVerifyPass: (nv = '', ov) => {
+        this.verify = true
+        if (nv.length === 0) {
+            this.verify = false
+        }
+    }
+
+<a id="MoneyInput"></a>
+
+### MoneyInput {#MoneyInput}
+
+```
+import { MoneyInput } from 'atalevue-h5'
+
+export default {
+    components: {
+        MoneyInput
+    }
+}
+```
+
+属性，方法参考[NumberInput](#NumberInput)。注意，该组件是**NumberInput**的子组件！
+
+修改了maxErrorMsg，minErrorMsg，nullErrorMsg，verifyInfo的默认值
+
+    maxErrorMsg: {
+        type: String,
+        default: '输入金额超限'
+    },
+    minErrorMsg: {
+        type: String,
+        default: '输入金额不足'
+    },
+    nullErrorMsg: {
+        type: String,
+        default: '请输入金额'
+    }
+
+    verifyInfo: '请输入金额'
+
+<a id="MsgValiInput"></a>
+
+### MsgValiInput {#MsgValiInput}
+
+```
+import { MsgValiInput } from 'atalevue-h5'
+
+export default {
+    components: {
+        MsgValiInput
+    }
+}
+```
+
+属性，方法参考[NumberInput](#NumberInput)。注意，该组件是**NumberInput**的子组件！
+
+重写了afterVerifyPass()方法
+
+    afterVerifyPass: (nv = '', ov) => {
+        this.verify = true
+        if (nv.length === 0) {
+            this.verifyInfo = '请输入验证码'
+            this.verify = false
+        } else if (nv.length !== this.maxLength) {
+            this.verifyInfo = '请输入正确的验证码'
+            this.verify = false
+        }
+    }
+
+修改了maxLength，float，unsigned，maxErrorMsg，minErrorMsg，nullErrorMsg，verifyInfo的值
+
+    maxLength: {
+        type: Number,
+        default: 6
+    },
+    float: {
+        type: Number,
+        default: 0
+    },
+    unsigned: {
+        type: Boolean,
+        default: false
+    },
+    maxErrorMsg: {
+        type: String,
+        default: '请输入正确的验证码'
+    },
+    minErrorMsg: {
+        type: String,
+        default: '请输入正确的验证码'
+    },
+    nullErrorMsg: {
+        type: String,
+        default: '请输入验证码'
+    }
+
+    verifyInfo: '请输入验证码'
+
+<a id="PassWordInput"></a>
+
+### PassWordInput {#PassWordInput}
+
+```
+import { PassWordInput } from 'atalevue-h5'
+
+export default {
+    components: {
+        PassWordInput
+    }
+}
+```
+
+- 属性
+
+    - isCiphertext: Boolean
+
+        是否隐藏密码
+
+其余属性，方法参考[BasicInput](#BasicInput)
+
+重写了afterVerifyPass()方法
+
+    afterVerifyPass: (nv = '', ov) => {
+        this.verify = this.passWordValidator(nv)
+        if (nv.length === 0) {
+            this.verifyInfo = '请输入登陆密码'
+        } else if (!this.verify) {
+            this.verifyInfo = '登录密码须是8-16位数字与字母组合'
+        }
+    }
+
+该组件具有私有方法**passWordValidator()**,它是密码的验证器，会被afterVerifyPass方法调用，用于验证密码的正确性。你可以通过继承该组件，覆盖该方法的方式修改密码校验方式，从而创造属于特定App的独有验证器。
+
+<a id="PhoneNumInput"></a>
+
+### PhoneNumInput {#PhoneNumInput}
+
+```
+import { PhoneNumInput } from 'atalevue-h5'
+
+export default {
+    components: {
+        PhoneNumInput
+    }
+}
+```
+
+- 属性
+
+    - model: Number
+
+        模式1，正常输入
+        模式2，输入号码自动在第3位和第7位后隔开，形如： 133 0000 0000
+
+其他属性，方法参考[NumberInput](#NumberInput)
+
+重写了afterVerifyPass()方法
+
+    afterVerifyPass: (nv, ov) => {
+        this.verify = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/.test(nv)
+        if (nv === '' || nv === null) {
+            this.verifyInfo = '请输入手机号码'
+        } else if (!this.verify) {
+            this.verifyInfo = '请输入正确的手机号'
+        }
+    }
+
+修改了unsigned，float的值
+
+    unsigned: {
+        type: Boolean,
+        default: false
+    },
+    float: {
+        type: Number,
+        default: 0
+    }
+
+<a id="PickInput"></a>
+
+### PickInput {#PickInput}
+
+```
+import { PickInput } from 'atalevue-h5'
+
+export default {
+    components: {
+        PickInput
+    }
+}
+```
+
+- 属性
+
+    - eMsg: String
+
+        用来控制默认的验证信息，也就是控制BasicInput中的verifyInfo字段
+
+其他属性，方法参考[BasicInput](#BasicInput)
+
+重写了afterVerifyPass()方法
+
+    afterVerifyPass: (nv = '', ov) => {
+        this.verify = true
+        if (nv.length === 0) {
+            this.verify = false
+        }
+    }
+
+<a id="UserNameInput"></a>
+
+### UserNameInput {#UserNameInput}
+
+```
+import { UserNameInput } from 'atalevue-h5'
+
+export default {
+    components: {
+        UserNameInput
+    }
+}
+```
+
+属性，方法参考[BasicInput](#BasicInput)
+
+重写了afterVerifyPass()方法
+
+    afterVerifyPass: (nv = '', ov) => {
+        this.verify = true
+        if (nv.length === 0) {
+            this.verifyInfo = '请输入您的真实姓名'
+            this.verify = false
+        } else if (!(/^[\u4e00-\u9fa5]{2,16}$/.test(nv))) {
+            this.verifyInfo = '您的姓名输入有误，请重新输入'
             this.verify = false
         }
     }
