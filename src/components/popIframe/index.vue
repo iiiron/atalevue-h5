@@ -51,10 +51,12 @@ export default{
   methods: {
     show () {
       this.oldTitle = document.title
-      this.setWechatTitle(this.title)
-      window.history.pushState({name: 'anchor'}, null)
-      window.addEventListener('popstate', this.onBack, false)
-      this.showPop = true
+      this.$nextTick(() => {
+        this.setWechatTitle(this.title)
+        window.history.pushState({name: 'anchor'}, null)
+        window.addEventListener('popstate', this.onBack, false)
+        this.showPop = true
+      })
     },
     hide () {
       this.setWechatTitle(this.oldTitle)
